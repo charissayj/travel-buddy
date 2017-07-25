@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Travels</title>
+	</head>
+	<body>
+		<a href="{% url 'register' %}">Logout</a>
+		<h1>Hello, {{ current_user.first_name }}</h1>
+		<h4>Your Trip Schedules</h4>
+		<table>
+			<tr>
+				<th>Destination</th>
+				<th>Travel Start Date</th>
+				<th>Travel End Date</th>
+				<th>Plan</th>
+			</tr>
+			<tbody>
+				{% for travel in travels %}
+					{% if current_user.id == travel.user.id %}
+				<tr>
+					<td><a href="{% url 'destination' id=travel.id %}">{{ travel.destination }}</a></td>
+					<td>{{ travel.start_date }}</td>
+					<td>{{ travel.end_date }}</td>
+					<td>{{ travel.plan }}</td>
+				</tr>
+					{% endif %}
+				{% endfor %}
+			</tbody>
+		</table>
+		<h4>Other Users Travel Plans</h4>
+		<table>
+			<tr>
+				<th>Name</th>
+				<th>Destination</th>
+				<th>Travel Start Date</th>
+				<th>Travel End Date</th>
+				<th>Plan</th>
+				<th>Do you want to join?</th>
+			</tr>
+			<tbody>
+				{% for travel in travels %}
+				<tr>
+					<td>{{ travel.user.first_name }} {{ travel.user.last_name }}</td>
+					<td><a href="{% url 'destination' id=travel.id %}">{{ travel.destination }}</a></td>
+					<td>{{ travel.start_date }}</td>
+					<td>{{ travel.end_date }}</td>
+					<td>{{ travel.plan }}</td>
+					<td><form action="{% url 'travelers' id=travel.id %}" method="post">
+						{% csrf_token %}
+						<input type="submit" value="join">
+					
+					</form></td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		<a href="{% url 'add_plan' %}">Add Travel Plan</a>
+	</body>
+</html>
