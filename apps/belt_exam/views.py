@@ -20,11 +20,13 @@ def index(request):
 def travels(request):
 	if 'user_id' in request.session:
 		current_user = currentUser(request)
-		travels = Travel.objects.all().order_by('-created_at')
+		my_trips = current_user.travelers.all()
+		travels = Travel.objects.exclude(id__in=my_trips).order_by('-created_at')
 
 		context = {
 			'current_user': current_user,
-			'travels': travels
+			'travels': travels,
+			'my_trips': my_trips,
 		}
 
 		return render(request, "belt_exam/travels.html", context)
@@ -54,8 +56,9 @@ def add_trip(request):
 def destination(request, id):
 	travel = Travel.objects.get(id=id)
 	current_user = currentUser(request)
-	travelers = Travel.objects.all()
+	travelers = travel.joined_by.all()
 	context = {
+		'current_user': current_user,
 		'travel': travel,
 		'travelers': travelers,
 	}

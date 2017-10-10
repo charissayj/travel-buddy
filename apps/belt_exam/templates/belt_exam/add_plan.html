@@ -1,29 +1,47 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>Add Plan</title>
-	</head>
-	<body>
-		<a href="{% url 'travels' %}">Home</a>
-		<a href="{% url 'register' %}">Logout</a>
-		
-		<h3>Add a Trip</h3>
-		{% if messages %}
-			{% for message in messages %}
-				<p>{{ message }}</p>
-			{% endfor %}
-		{% endif %}
-		<form action="add_trip" method="post">
-			{% csrf_token %}
-			<label>Destination: </label>
-			<input type="text" name="destination"/>
-			<label>Travel Date From: </label>
-			<input type="date" name="start_date"/>
-			<label>Travel Date From: </label>
-			<input type="date" name="end_date"/>
-			<label>Plan: </label>
-			<input type="text" name="plan"/>
-			<input type="submit" value="Add">
-		</form>
-	</body>
+
+<head>
+    <title>Add Plan</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../../static/belt_exam/style.css" />
+</head>
+
+<body>
+    <a href="{% url 'travels' %}" class="nav-links">Home</a>
+    <a href="{% url 'register' %}" class="nav-links">Logout</a>
+
+    <h3>Add a Trip</h3>
+    {% if messages %} {% for message in messages %}
+    <p>{{ message }}</p>
+    {% endfor %} {% endif %}
+    <div class="col-4">
+        <form action="add_trip" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label>Destination: </label>
+                <input type="text" class="form-control" name="destination" />
+            </div>
+            <div class="form-group">
+                <label>Travel Date From: </label>
+                <input type="date" class="form-control" name="start_date" />
+            </div>
+            <div class="form-group">
+                <label>Travel Date From: </label>
+                <input type="date" class="form-control" name="end_date" />
+            </div>
+            <div class="form-group">
+                <label>Plan: </label>
+                <textarea name="plan" class="form-control"></textarea>
+            </div>
+            <div class="form-group">
+                <input type="submit" class="form-control" value="Add">
+            </div>
+        </form>
+    </div>
+</body>
+
 </html>

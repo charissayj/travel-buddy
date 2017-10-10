@@ -1,37 +1,71 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>Travels</title>
-	</head>
-	<body>
-		{% if messages %}
-			{% for message in messages %}
-				<p>{{ message }}</p>
-			{% endfor %}
-		{% endif %}
-		<h1>Register</h1>
-		<form action="{% url 'register' %}" method="post">
-			{% csrf_token %}
-			<label>First Name: </label>
-			<input type="text" name="first_name"/>
-			<label>Last Name: </label>
-			<input type="text" name="last_name"/>
-			<label>Email: </label>
-			<input type="email" name="email"/>
-			<label>Password: </label>
-			<input type="password" name="password"/>
-			<label>Confirm Password: </label>
-			<input type="password" name="password_confirm"/>
-			<input type="submit" value="Register"/>
-		</form>
-		<h1>Login</h1>
-		<form action="{% url 'login' %}" method="post">
-			{% csrf_token %}
-			<label>Email: </label>
-			<input type="email" name="email"/>
-			<label>Password: </label>
-			<input type="password" name="password"/>
-			<input type="submit" value="Login"/>
-		</form>
-	</body>
+
+<head>
+    <title>Travels</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../../static/belt_exam/style.css" />
+</head>
+
+<div>
+    <div class="row">
+        <div class="col-1"></div>
+        {% if messages %} {% for message in messages %}
+        <p>{{ message }}</p>
+        {% endfor %} {% endif %}
+        <!-- Registration -->
+        <div class="col-5">
+            <h1>Register</h1>
+            <form action="{% url 'register' %}" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label>First Name: </label>
+                    <input type="text" class="form-control" name="first_name" />
+                </div>
+                <div class="form-group">
+                    <label>Last Name: </label>
+                    <input type="text" class="form-control" name="last_name" />
+                </div>
+                <div class="form-group">
+                    <label>Email: </label>
+                    <input type="email" class="form-control" name="email" />
+                </div>
+                <div class="form-group">
+                    <label>Password: </label>
+                    <input type="password" class="form-control" name="password" />
+                </div>
+                <div class="form-group">
+                    <label>Confirm Password: </label>
+                    <input type="password" class="form-control" name="password_confirm" />
+                </div>
+                <div class="form-group">
+                    <button type="submit" value="Register">Register</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Login -->
+        <div class="col-5">
+            <h1>Login</h1>
+            <form action="{% url 'login' %}" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label>Email: </label>
+                    <input type="email" class="form-control" name="email" />
+                </div>
+                <div class="form-group">
+                    <label>Password: </label>
+                    <input type="password" class="form-control" name="password" />
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Login" />
+                </div>
+            </form>
+        </div>
+    </div>
+    </body>
+
 </html>

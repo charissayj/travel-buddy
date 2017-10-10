@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 import bcrypt
+import datetime
 
 # Create your models here.
 class UserManager(models.Manager):
@@ -57,12 +58,20 @@ class TravelManager(models.Manager):
 	def validateTravel(self, form_data):
 		errors = []
 
+		start_date = datetime.datetime.strptime(form_data['start_date'], '%Y-%m-%d').date()
+		
+		end_date = datetime.datetime.strptime(form_data['end_date'], '%Y-%m-%d').date()
+
 		if len(form_data['destination']) == 0:
 			errors.append("You must enter a destination")
 		if len(form_data['plan']) == 0:
 			errors.append("You must enter a plan")
 		if len(form_data['start_date']) == 0:
 			errors.append("Start date cannot be blank!")
+		if start_date < datetime.date.today():
+			errors.append('Start date must be in the future')
+		if end_date < start_date:
+			errors.append('End date must be after the start date')
 		if len(form_data['end_date']) == 0:
 			errors.append("End date cannot be blank")
 		
@@ -76,13 +85,15 @@ class TravelManager(models.Manager):
 				plan = form_data['plan'],
 				user = user
 			)
+
+		user.travelers.add(travel)
 		
 		return travel
 
 class Travel(models.Model):
 	destination = models.CharField(max_length=255)
 	start_date = models.DateTimeField()
-	end_date = models.CharField(max_length=255)
+	end_date = models.DateTimeField(max_length=255)
 	plan = models.TextField()
 	user = models.ForeignKey(User, related_name='trips')
 	joined_by = models.ManyToManyField(User, related_name="travelers")

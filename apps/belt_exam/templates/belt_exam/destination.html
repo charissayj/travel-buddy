@@ -1,20 +1,30 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>Destination</title>
-	</head>
-	<body>
-		<a href="{% url 'travels' %}">Home</a>
-		<a href="{% url 'register' %}">Logout</a>
-		<h1>{{travel.destination}}</h1>
-		<p>Planned by: {{ travel.user.first_name }} {{ travel.user.last_name }}</p>
-		<p>Description: {{ travel.plan }}</p>
-		<p>Travel Date From: {{ travel.start_date }}</p>
-		<p>Travel Date To: {{ travel.end_date }}</p>
 
-		<h3>Other users' joining the trip: </h3>
-			{% for traveler in travelers %}
-			<p>{{ travelers.user.first_name }}</p>
-			{% endfor %}
-	</body>
+<head>
+    <title>Destination</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../../static/belt_exam/style.css" />
+</head>
+
+<body>
+    <a href="{% url 'travels' %}" class="nav-links">Home</a>
+    <a href="{% url 'register' %}" class="nav-links">Logout</a>
+    <div class="destination">
+        <h1>{{travel.destination}}</h1>
+        <p>Planned by: {{ travel.user.first_name }} {{ travel.user.last_name }}</p>
+        <p>Description: {{ travel.plan }}</p>
+        <p>Travel Date From: {{ travel.start_date }}</p>
+        <p>Travel Date To: {{ travel.end_date }}</p>
+
+        <h3>Other users' joining the trip: </h3>
+        {% for traveler in travelers %} {% if current_user.id != travel.user.id %}
+        <p>{{ traveler.first_name }}</p>
+        {% endif %} {% endfor %}
+    </div>
+</body>
+
 </html>
